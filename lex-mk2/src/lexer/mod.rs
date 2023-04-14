@@ -218,7 +218,7 @@ pub mod parser{
                 ')' => {return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::CloseParen))}
                 '$' | '#' | '<' | '>' | '=' | '!' => {return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::Grammar))}
                 '\'' | '\"' => { self.advance_through_string_literal(current); return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::String))}
-                '\n' => {self.new_line()}
+                '\n' => {self.new_line(); return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::NewLine))}
                 '\0'|'\r' => {} //Ignore EOF
                 ' ' => {return Some(Token::new(&self.src[start_index..self.cursor], TokenKind::Space))}
                 _ => { return Some(Token::new(&self.src[start_index..self.cursor], TokenKind::Grammar))} // panic!("Unimplemented character exception.")}
