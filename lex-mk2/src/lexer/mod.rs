@@ -72,6 +72,13 @@ pub mod parser{
                 kind: kind
             }
         }
+
+        fn copy(t: Token<'a>) -> Token {
+            Token {
+                text: t.text,
+                kind: t.kind
+            }
+        }
     }
     
     pub struct Lexer {
@@ -116,17 +123,29 @@ pub mod parser{
             return None;
         }
     
-        fn skip_white_space(self: &mut Self){
-            while self.current().is_whitespace() {
+        fn skip_white_space(self: &mut Self) -> Option<usize>{
+            let start_index = self.cursor-1;
+            if !self.current().is_whitespace() && self.current() != '\n'{
+                return None;
+            }
+    
+            while self.current().is_whitespace() && self.current() != '\n'{
                 //If the character after us is NOT a white space, do not advance, we will already be advanced on.
                 if self.peek().is_some() && !self.peek().unwrap().is_whitespace(){
-                    return;
+                    if start_index == self.cursor-1{
+                        return None;
+                    }
+                    return Some( start_index)
                 }
                 self.advance();
                 if self.peek().is_none() {
-                    return
+                    if start_index == self.cursor-1{
+                        return None;
+                    }
+                    return Some( start_index)
                 }
             }
+            return None;
         }
 
         //Continue consuming characters until we reach the character we started with.
@@ -151,7 +170,10 @@ pub mod parser{
             //Increment the cursor
             self.advance();
             //Skip white space
-            self.skip_white_space();    
+            match self.skip_white_space(){
+                Some( start ) => {return Some( Token::new(&self.src[start..self.cursor], TokenKind::Space))}
+                _ => {} //Continue;
+            }
     
             let start_index: usize = self.cursor-1;
             let current: char = self.current();
@@ -198,8 +220,8 @@ pub mod parser{
                 '\'' | '\"' => { self.advance_through_string_literal(current); return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::String))}
                 '\n' => {self.new_line()}
                 '\0'|'\r' => {} //Ignore EOF
-                ' ' => {println!("Consuming a space?")}
-                _ => { println!("{}", current as i8); panic!("Unimplemented character exception.")}
+                ' ' => {return Some(Token::new(&self.src[start_index..self.cursor], TokenKind::Space))}
+                _ => { return Some(Token::new(&self.src[start_index..self.cursor], TokenKind::Grammar))} // panic!("Unimplemented character exception.")}
             }
             
             return None;

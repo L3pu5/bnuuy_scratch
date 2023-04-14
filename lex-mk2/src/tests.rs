@@ -64,7 +64,9 @@ mod tests {
             if t.is_some() {
                 let token = t.unwrap();
                 println!("{}", &token);
-                count += 1;
+                if !matches!(token.kind, TokenKind::Space) {
+                    count += 1;
+                }
             }
         }
         assert!(count == 3, "There should be 3 symbols. Found {count}");
@@ -86,5 +88,18 @@ mod tests {
             }
         }
         assert!(count == 5, "There should be five dot for this text. Found {count}");
+    }
+
+    #[test]
+    fn welcome_text(){
+        let welcome_text = String::from("Welcome to bunny_scratch by L3Pu5 Hare!\n|  Everything here has been written from scratch using React/JS and 🦀Rust/Webpack🕸️.\n|  Tokenisation is done with rust, and this simple text editor is written in React/JS.\n\n<-- FileSystem| (Editor) |Settings -->\nFileSytem\n| This is your temporary in-browser (filesystem).\n| Do not save anything important in (/temp), it will be purged when the browser tab dies. VERY temporary.\nEditor\n| This is the centre panel. Excepting this splash screen, you can edit files in here!.\nSettings\n| This area lets you tweak the syntax highlighting and settings such as the tabwidth, etc.\n| You can also use the export feature to save to your local disk.");
+        let mut lexer : Lexer = Lexer::create_from_string(&welcome_text);
+        while !lexer.eof() {
+            let t = lexer.read_next_token();
+            if t.is_some() {
+                let token = t.unwrap();
+                println!("{}", &token);
+            }
+        }
     }
 }
