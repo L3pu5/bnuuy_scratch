@@ -105,7 +105,7 @@ pub fn build_tokens(input_string: JsValue) -> JsValue{
     impl Token<'_> {
         fn to_json(self: &Self) -> String {
             match self.kind {
-                TokenKind::String   => {return format!("{{ \"text\": {},  \"kind\": \"{}\"  }}", String::from_iter(self.text), self.kind)}
+                TokenKind::String   => {return format!("{{ \"text\": \"{}\",  \"kind\": \"{}\"  }}", String::from_iter(self.text), self.kind)}
                 TokenKind::NewLine  => {return format!("{{ \"text\": \"NEWLINE\",  \"kind\": \"{}\"  }}", self.kind)}
                 _ => {return format!("{{ \"text\": \"{}\",  \"kind\": \"{}\"  }}", String::from_iter(self.text), self.kind)} 
             }
@@ -118,13 +118,6 @@ pub fn build_tokens(input_string: JsValue) -> JsValue{
             Token {
                 text: text,
                 kind: kind
-            }
-        }
-
-        fn copy(t: Token<'a>) -> Token {
-            Token {
-                text: t.text,
-                kind: t.kind
             }
         }
     }
@@ -265,7 +258,7 @@ pub fn build_tokens(input_string: JsValue) -> JsValue{
                 '(' => {return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::OpenParen))}
                 ')' => {return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::CloseParen))}
                 '$' | '#' | '<' | '>' | '=' | '!' => {return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::Grammar))}
-                '\'' | '\"' => { self.advance_through_string_literal(current); return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::String))}
+                '\'' | '\"' => { self.advance_through_string_literal(current); return Some( Token::new(&self.src[start_index+1..self.cursor-1], TokenKind::String))}
                 '\n' => {self.new_line(); return Some( Token::new(&self.src[start_index..self.cursor], TokenKind::NewLine))}
                 '\0'|'\r' => {} //Ignore EOF
                 ' ' => {return Some(Token::new(&self.src[start_index..self.cursor], TokenKind::Space))}

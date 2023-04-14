@@ -102,4 +102,19 @@ mod tests {
             }
         }
     }
+
+    
+
+    #[test]
+    fn string_lit(){
+        let welcome_text = String::from(" \"don't mind me I am a string literal \"");
+        let mut lexer : Lexer = Lexer::create_from_string(&welcome_text);
+        while !lexer.eof() {
+            let t = lexer.read_next_token();
+            if t.is_some() {
+                let token = t.unwrap();
+                println!("{}", &token);
+            }
+        }
+    }
 }
