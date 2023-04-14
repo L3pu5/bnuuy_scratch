@@ -10,13 +10,15 @@ pub mod parser{
         CloseParen,
         OpenBrack,
         CloseBrack,
-
+    
         Semi,
         Colon,
         Dot,
         Comma,
         //All other grammar 
+        NewLine,
         Grammar,
+        Space,
         //Literals
         Number,         //All numbers are numbers, including 0x/0b
         String,         //All String-type literals "", '', [[]]
@@ -30,6 +32,7 @@ pub mod parser{
             match self {
                 Self::Grammar      => {return write!(f, "Grammar")}
                 Self::Dot          => {return write!(f, "Dot")}
+                Self::Space        => {return write!(f, "Space")}
                 Self::Comma        => {return write!(f, "Comma")}
                 Self::Semi         => {return write!(f, "Semi")}
                 Self::Colon        => {return write!(f, "Colon")}
@@ -42,6 +45,7 @@ pub mod parser{
                 Self::Symbol       => {return write!(f, "SYMBOL")}
                 Self::Number       => {return write!(f, "NUMBER")}
                 Self::Invalid      => {return write!(f, "Invalid")}
+                Self::NewLine      => {return write!(f, "NEWLINE")}
                 Self::String       => {return write!(f, "STRING")}
                 _                  => {return write!(f, "UNIMPLEMENTED")}
             }
