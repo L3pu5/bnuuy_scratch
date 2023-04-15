@@ -130,6 +130,14 @@ pub mod parser{
             }
     
             while self.current().is_whitespace() && self.current() != '\n'{
+                //If ahead of us is a \n 
+                if self.peek().is_some() && self.peek().unwrap() == '\n' {
+                    //Return us
+                    if start_index == self.cursor-1{
+                        return None;
+                    }
+                    return Some( start_index)
+                }
                 //If the character after us is NOT a white space, do not advance, we will already be advanced on.
                 if self.peek().is_some() && !self.peek().unwrap().is_whitespace(){
                     if start_index == self.cursor-1{

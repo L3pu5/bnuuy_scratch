@@ -103,7 +103,27 @@ mod tests {
         }
     }
 
-    
+    #[test]
+    fn starting_with_spaces(){
+        let test = String::from("      \nThereareSixBehindMe\n    ");
+        let mut lexer : Lexer = Lexer::create_from_string(&test);
+        let mut spaces = 0;
+        let mut newlines = 0;
+        while !lexer.eof() {
+            let t = lexer.read_next_token();
+            if t.is_some() {
+                let token = t.unwrap();
+                match token.kind {
+                    TokenKind::NewLine => {newlines += 1;}
+                    TokenKind::Space =>   {spaces += 1;}
+                    _ => {}
+                }
+                println!("{}", &token);
+            }
+        }
+        assert!(spaces == 2, "Spaces were not 2");
+        assert!(newlines == 2, "newlines were not 2");
+    }
 
     #[test]
     fn string_lit(){

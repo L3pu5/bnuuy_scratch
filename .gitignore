@@ -3,3 +3,4 @@ lex-mk2/target
 pkg
 React/*
 React
+.vscode/
