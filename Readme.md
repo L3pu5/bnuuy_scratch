@@ -2,6 +2,11 @@
 
 This is a simple project for my portfolio to demonstrate my ability to deploy a React/NodeJs frontend implementing a simple Rust->WASM lexer.
 
+# Depreciated
+
+This project was not giving me satisfaction. Once the novelty of getting wasm to work properly wore off and I was stuck fighting react uphill to do simple operations I got tired of it.
+I have uploaded all components, you can build the rust with `wasm-pack build --target web`
+
 ## Lessons Learned for future users
 
 1. When building from webpack build with the --target web and use the init() method to start the WASM VM.
