@@ -1,0 +1,43 @@
+.mainScratch {
+    height: auto;
+    width: 60%;
+    border-left: #1F1F1F;
+    border-width: 0 0 0 5px;
+    border-style: solid;
+    background-color: #1b1b1b;
+    color: #CCC;
+    white-space: pre-wrap;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 0;
+    align-content: flex-start;
+    padding: 0;
+}
+
+.lineBreak {
+    width: 100%;
+    font-size: medium;
+    height: auto;
+}
+
+.Token {
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    font-size: medium;
+    justify-content: flex-start;
+    display: flex;
+    white-space: pre;
+    gap: 0px;
+}
+
+.Editor {
+    height: 100vh;
+    width: 100vw;
+    background-color: #121212; 
+    display: flex;
+}

@@ -1,0 +1,72 @@
+.BottomBar {
+    background-color: #222;
+    height: fit-content;
+    width: 100%;
+    caret-color: transparent;
+}
+
+.RenderTarget{
+    width: 100%;
+    height: min-content;
+    flex-grow: 1;
+}
+
+.Token {
+    white-space: pre;
+    display: inline;
+    flex-wrap: nowrap;
+}
+
+.TokenNLSpan{
+    white-space: pre-line;
+    height: fit-content;
+    width: 100%;
+    display: inline-block;
+}
+
+.TokenNL {
+    white-space: pre-wrap;
+    height: 0%;
+    flex-basis: 100%;
+    display: inline-block;
+}
+
+.ContentHolder{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    font-size: medium;
+}
+
+.TokenRenderer {
+    height:100%;
+    caret-color: transparent;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    justify-content: flex-start;
+    align-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.CursorHolder{
+    position: relative;
+    width: 0%;
+    height:0%;
+}
+
+.Cursor {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    white-space: pre;
+    background-color: white;
+    width: fit-content;
+    height: fit-content;
+    flex-basis: 0;
+    flex: none;
+}
